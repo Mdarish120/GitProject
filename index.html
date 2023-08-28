@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Styling List Elements</title>
+    <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+    <ul>
+        <li>First element</li>
+        <li>Second element</li>
+        <li id="thirdElement">Third element</li>
+    </ul>
+
+    <script>
+// Get the third list element by its ID
+const thirdElement = document.getElementById("thirdElement");
+
+// Apply green background color to the third list element
+thirdElement.style.backgroundColor = "green";
+thirdElement.style.color = "white"; // Change text color to white for better visibility
+
+// Apply bold font style to all list elements
+const listItems = document.querySelectorAll("ul li");
+listItems.forEach(item => {
+    item.style.fontWeight = "bold";
+});
+
+    </script>
+</body>
+</html>
