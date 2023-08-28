@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manipulating DOM Elements</title>
+</head>
+<body>
+    <ul>
+        <li class="my-class">Item 1</li>
+        <li class="my-class">Item 2</li>
+        <li class="my-class">Item 3</li>
+    </ul>
+
+    <ul>
+        <li>New Item</li>
+    </ul>
+</body>
+<script>
+    // Using getElementsByClassName
+const elementsWithClass = document.getElementsByClassName("my-class");
+console.log(elementsWithClass); // Outputs the HTMLCollection of elements with the class "my-class"
+
+// Using getElementsByTagName
+const liElements = document.getElementsByTagName("li");
+console.log(liElements); // Outputs an HTMLCollection of all <li> elements
+
+// Editing the new <li> element (using getElementsByTagName)
+const newLiElement = liElements[3]; // The index is 3 because it's the fourth <li> element (0-based indexing)
+newLiElement.textContent = "Edited Item"; // Change the text content of the element
+
+</script>
+</html>
