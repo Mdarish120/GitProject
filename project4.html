@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic List</title>
+<style>
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    margin: 5px;
+  }
+</style>
+</head>
+<body>
+
+<ul id="dynamic-list">
+  <!-- Existing list items, if any -->
+</ul>
+
+<button id="add-button">Add Item</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const addButton = document.getElementById("add-button");
+  const dynamicList = document.getElementById("dynamic-list");
+
+  addButton.addEventListener("click", function() {
+    const newLI = document.createElement("li");
+    newLI.textContent = "New Item";
+    
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", function() {
+      dynamicList.removeChild(newLI);
+    });
+
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    // Add edit button functionality here
+    
+    newLI.appendChild(deleteButton);
+    newLI.appendChild(editButton);
+    
+    dynamicList.appendChild(newLI);
+  });
+});
+</script>
+
+</body>
+</html>
