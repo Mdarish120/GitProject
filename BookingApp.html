@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Registration</title>
+</head>
+<body>
+  <h1>User Registration</h1>
+  <form id="registrationForm">
+    <div>
+      <label for="userName">Username:</label>
+      <input type="text" id="userName" name="userName" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div>
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div>
+      <button type="submit">Register</button>
+    </div>
+  </form>
+
+  <script>
+    const registrationForm = document.getElementById('registrationForm');
+
+    registrationForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const userName = document.getElementById('userName').value;
+      const password = document.getElementById('password').value;
+      const gender = document.getElementById('gender').value;
+
+      const userDetails = {
+        userName: userName,
+        password: password,
+        gender: gender
+      };
+
+      // Store user details in local storage
+      storeUserDetails(userDetails);
+
+      alert('User registered successfully!');
+      registrationForm.reset();
+    });
+
+    function storeUserDetails(userDetails) {
+      // Check if local storage is available
+      if (typeof(Storage) !== 'undefined') {
+        // Retrieve existing data or create an empty array
+        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+        // Add the new user details to the array
+        storedUsers.push(userDetails);
+
+        // Store the updated array in local storage
+        localStorage.setItem('users', JSON.stringify(storedUsers));
+      } else {
+        console.log('Local storage is not supported in this browser.');
+      }
+    }
+  </script>
+</body>
+</html>
