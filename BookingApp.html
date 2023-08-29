@@ -27,6 +27,11 @@
     <div>
       <button type="submit">Register</button>
     </div>
+
+    <ul id="userList">
+      <!-- User entries will be displayed here -->
+    </ul>
+    
   </form>
 
   <script>
@@ -53,19 +58,36 @@
     });
 
     function storeUserDetails(userDetails) {
-      // Check if local storage is available
-      if (typeof(Storage) !== 'undefined') {
-        // Retrieve existing data or create an empty array
-        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+      // Get existing user data from local storage or initialize an empty array
+let storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-        // Add the new user details to the array
-        storedUsers.push(userDetails);
+// Function to display users
+function displayUsers() {
+  const userList = document.getElementById('userList');
+  userList.innerHTML = ''; // Clear existing content
 
-        // Store the updated array in local storage
-        localStorage.setItem('users', JSON.stringify(storedUsers));
-      } else {
-        console.log('Local storage is not supported in this browser.');
-      }
+  storedUsers.forEach(function(user, index) {
+    const listItem = document.createElement('li');
+    listItem.textContent = `Username: ${user.userName}, Gender: ${user.gender}`;
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.addEventListener('click', function() {
+      // Remove user from local storage
+      storedUsers.splice(index, 1);
+      localStorage.setItem('users', JSON.stringify(storedUsers));
+
+      // Update UI
+      displayUsers();
+    });
+
+    listItem.appendChild(deleteButton);
+    userList.appendChild(listItem);
+  });
+}
+
+// Initial display
+displayUsers();
     }
   </script>
 </body>
