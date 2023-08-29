@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change User Password</title>
+</head>
+<body>
+  <h1>Change User Password</h1>
+  <form id="changePasswordForm">
+    <div>
+      <label for="usernameToChange">Username to Change Password:</label>
+      <input type="text" id="usernameToChange" name="usernameToChange" required>
+    </div>
+    <div>
+      <label for="newPassword">New Password:</label>
+      <input type="password" id="newPassword" name="newPassword" required>
+    </div>
+    <div>
+      <button type="button" id="changePasswordButton">Change Password</button>
+    </div>
+  </form>
+
+  <ul id="userList">
+    <!-- User entries will be displayed here -->
+  </ul>
+
+  <script>
+    const changePasswordForm = document.getElementById('changePasswordForm');
+    const changePasswordButton = document.getElementById('changePasswordButton');
+
+    changePasswordButton.addEventListener('click', function() {
+      const usernameToChange = document.getElementById('usernameToChange').value;
+      const newPassword = document.getElementById('newPassword').value;
+
+      if (usernameToChange && newPassword) {
+        changeUserPassword(usernameToChange, newPassword);
+      } else {
+        alert('Please provide a username and a new password.');
+      }
+    });
+
+    // Function to display users
+    function displayUsers() {
+      const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+      const userList = document.getElementById('userList');
+      userList.innerHTML = ''; // Clear existing content
+
+      storedUsers.forEach(function(user, index) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `Username: ${user.userName}, Gender: ${user.gender}, Password: ${user.password}`;
+
+        userList.appendChild(listItem);
+      });
+    }
+
+    // Initial display
+    displayUsers();
+
+    function changeUserPassword(username, newPassword) {
+      const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+      const userIndexToChange = storedUsers.findIndex(user => user.userName === username);
+
+      if (userIndexToChange !== -1) {
+        storedUsers[userIndexToChange].password = newPassword;
+        localStorage.setItem('users', JSON.stringify(storedUsers));
+        alert('Password changed successfully!');
+        displayUsers();
+      } else {
+        alert('User not found.');
+      }
+    }
+  </script>
+</body>
+</html>
